@@ -5,7 +5,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import me.vlasoff.appselecttz.data.network.apiservice.MoviesApiService
+import me.vlasoff.appselecttz.data.network.paging.MoviesRemoteDataSource
 import me.vlasoff.appselecttz.data.repository.MoviesRepository
+import me.vlasoff.appselecttz.domain.usecases.GetAllMoviesUseCase
+import me.vlasoff.appselecttz.presentation.main.MoviesViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -15,7 +18,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    fun provideBaseUrl() = "https://api.nytimes.com/svc/movies/v2/reviews/all.json"
+    fun provideBaseUrl() = "https://api.nytimes.com/svc/movies/v2/"
 
     @Provides
     @Singleton
@@ -32,4 +35,15 @@ object NetworkModule {
     @Provides
     fun providesMoviesRepository(apiService: MoviesApiService) = MoviesRepository(apiService)
 
+    @Provides
+    fun providesMovesRemoteDataSource(repository: MoviesRepository) =
+        MoviesRemoteDataSource(repository)
+
+    @Provides
+    fun providesGetMoviesUseCase(moviesRemoteDataSource: MoviesRemoteDataSource) =
+        GetAllMoviesUseCase(moviesRemoteDataSource)
+
+    @Provides
+    fun provideMoviesViewModel(useCase: GetAllMoviesUseCase) =
+        MoviesViewModel(useCase)
 }

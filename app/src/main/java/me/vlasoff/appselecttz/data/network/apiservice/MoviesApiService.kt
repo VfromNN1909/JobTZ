@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface MoviesApiService {
 
-    @GET
+    @GET("reviews/all.json")
     suspend fun getMovies(@Query("api-key")apiKey: String): MoviesResponse
 
 }

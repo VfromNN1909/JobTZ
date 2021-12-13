@@ -12,4 +12,13 @@ data class Result(
     val opening_date: Any,
     val publication_date: String,
     val summary_short: String
-)
+) {
+    companion object {
+        fun mapToUi(movie: Result) =
+            MovieUiModel(
+                title = movie.display_title,
+                description = movie.summary_short,
+                src = movie.multimedia.src
+            )
+    }
+}

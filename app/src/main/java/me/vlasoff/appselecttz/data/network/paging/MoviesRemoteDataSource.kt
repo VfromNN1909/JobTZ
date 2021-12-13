@@ -6,7 +6,7 @@ import me.vlasoff.appselecttz.data.repository.MoviesRepository
 import me.vlasoff.appselecttz.utils.NETWORK_PAGE_SIZE
 import javax.inject.Inject
 
-internal class MoviesRemoteDataSource @Inject constructor(
+class MoviesRemoteDataSource @Inject constructor(
     private val repository: MoviesRepository
 ) {
     fun getMovies() =
