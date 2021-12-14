@@ -1,5 +1,6 @@
 package me.vlasoff.appselecttz.presentation.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -19,6 +20,7 @@ class MoviesViewModel @Inject constructor (
         useCase.execute()
             .map { pagingData ->
                 pagingData.map { movieFromNetwork ->
+                    Log.d("paging", movieFromNetwork.toString())
                     Result.mapToUi(movieFromNetwork)
                 }
             }
