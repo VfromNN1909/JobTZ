@@ -1,13 +1,16 @@
 package me.vlasoff.appselecttz.presentation.splash
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.vlasoff.appselecttz.R
 import me.vlasoff.appselecttz.databinding.ActivitySplashBinding
+import me.vlasoff.appselecttz.presentation.main.MainActivity
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
@@ -20,10 +23,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.splashFCV, SplashFragment())
-            setReorderingAllowed(true)
-            commit()
-        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(Intent(this, MainActivity::class.java))
+        }, 1500)
+
     }
 }

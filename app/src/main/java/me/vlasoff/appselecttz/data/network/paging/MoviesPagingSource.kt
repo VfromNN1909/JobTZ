@@ -23,7 +23,6 @@ class MoviesPagingSource @Inject constructor(
         }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Result> {
-        val pageIndex = params.key ?: STARTING_PAGE_INDEX
         return try {
             val response = repository.getMovies().let { response ->
                 when (response) {
@@ -33,15 +32,12 @@ class MoviesPagingSource @Inject constructor(
                     else -> null
                 }
             }
-            val nextKey = if (response == null || response.isEmpty()) {
-                null
-            } else {
-                pageIndex + (params.loadSize / NETWORK_PAGE_SIZE)
-            }
             LoadResult.Page(
+                // надо было как-то обернуть, наверное, но пусть будет, если упадет сразу будет понятно в чем дело
                 data = response!!,
-                prevKey = if (pageIndex == STARTING_PAGE_INDEX) null else pageIndex,
-                nextKey = nextKey
+                prevKey = null,
+                // вот в этом была проблема
+                nextKey = params.key?.plus(1)
             )
         } catch (exception: IOException) {
             return LoadResult.Error(exception)
