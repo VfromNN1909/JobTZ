@@ -14,5 +14,5 @@ class MoviesRepository @Inject constructor(
 ) : IRepository.IMoviesRepository {
 
     override suspend fun getMovies(): ResultWrapper<MoviesResponse> =
-        safeApiCall { apiService.getMovies(API_KEY) }
+        safeApiCall { apiService.getMovies() }
 }
