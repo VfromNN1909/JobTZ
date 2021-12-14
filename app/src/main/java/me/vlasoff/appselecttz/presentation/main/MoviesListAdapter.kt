@@ -27,7 +27,8 @@ class MovieListAdapter :
                 ?: MovieUiModel(
                     title = "Не найдено",
                     description = "Не найдено",
-                    src = "https://activefisher.net/wp-content/uploads/8/c/5/8c5731b80c62c0bb1b42da86f5963c23.jpg"
+                    // поправил
+                    src = ""
                 )
         )
     }
